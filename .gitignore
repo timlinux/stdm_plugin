@@ -5,3 +5,5 @@
 
 #Compiled Python Files
 *.pyc
+# Pycharm ide file
+.idea

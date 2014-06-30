@@ -1,9 +1,9 @@
 """
 /***************************************************************************
 Name                 : Auhtorization Service
-Description          : Checks whether the logged in user has permissions to 
+Description          : Checks whether the logged in user has permissions to
                         access the particular content item
-Date                 : 2/June/2013 
+Date                 : 2/June/2013
 copyright            : (C) 2013 by John Gitau
 email                : gkahiu@gmail.com
  ***************************************************************************/
@@ -26,14 +26,14 @@ from sqlalchemy.exc import *
 
 class Authorizer(object):
     '''
-    This class has the responsibility of asserting whether an account with 
+    This class has the responsibility of asserting whether an account with
     the given user name has permissions to access a particular content item
     '''
     def __init__(self,username):
         self.username = username
         self.userRoles = []
-        self._getUserRoles()        
-        
+        self._getUserRoles()
+
     def _getUserRoles(self):
         '''
         Get roles that the user belongs to
@@ -45,23 +45,23 @@ class Authorizer(object):
         it is not a group role in PostgreSQL but content is initialized by
         morphing it as a role in registering content items
         '''
-        pg_account = 'postgres'
+        pg_account = 'docker'
         if self.username == pg_account:
             self.userRoles.append(pg_account)
-        
-    def CheckAccess(self,contentCode):      
+
+    def CheckAccess(self, contentCode):
         '''
         Assert whether the given user has permissions to access a content
-        item with the gien code. 
-        '''        
+        item with the gien code.
+        '''
         hasPermission = False
-        
-        #Get roles with permission        
-        try:                              
-            cnt = Content()            
-            qo = cnt.queryObject()            
-            cntRef = qo.filter(Content.code == contentCode).first()            
-            
+
+        #Get roles with permission
+        try:
+            cnt = Content()
+            qo = cnt.queryObject()
+            cntRef = qo.filter(Content.code == contentCode).first()
+
             if cntRef != None:
                 cntRoles = cntRef.roles
                 for rl in cntRoles:
@@ -74,17 +74,16 @@ class Authorizer(object):
             Catches all errors
             '''
             #pass
-            raise            
-        
+            raise
+
         return hasPermission
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-          
+
+
+
+
+
+
+
+
+
+
